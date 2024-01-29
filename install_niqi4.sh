@@ -1,50 +1,50 @@
 #!/bin/bash
 
 ################################################################################
-# Script for installing Odoo on Ubuntu 22.04 LTS (could be used for other version too)
-# Author: Henry Robert Muwanika
+# Script for installing niqi on Ubuntu 22.04 LTS (could be used for other version too)
+# Author: Esan Maruff
 #-------------------------------------------------------------------------------
-# This script will install Odoo on your Ubuntu 22.04 server. It can install multiple Odoo instances
+# This script will install niqi on your Ubuntu 22.04 server. It can install multiple niqi instances
 # in one Ubuntu because of the different xmlrpc_ports
 #-------------------------------------------------------------------------------
 # crontab -e
 # 43 6 * * * certbot renew --post-hook "systemctl reload nginx"
 # Make a new file:
-# sudo nano install_odoo_ubuntu.sh
+# sudo nano install_niqi4.sh
 # Place this content in it and then make the file executable:
-# sudo chmod +x install_odoo_ubuntu.sh
-# Execute the script to install Odoo:
-# ./install_odoo_ubuntu.sh
+# sudo chmod +x install_niqi4.sh
+# Execute the script to install niqi:
+# ./install_niqi4.sh
 ################################################################################
 
-OE_USER="odoo"
+OE_USER="niqi"
 OE_HOME="/opt/$OE_USER"
 OE_HOME_EXT="/opt/$OE_USER/${OE_USER}-server"
-# The default port where this Odoo instance will run under (provided you use the command -c in the terminal)
+# The default port where this niqi instance will run under (provided you use the command -c in the terminal)
 # Set to true if you want to install it, false if you don't need it or have it already installed.
 INSTALL_WKHTMLTOPDF="True"
-# Set the default Odoo port (you still have to use -c /etc/odoo-server.conf for example to use this.)
-OE_PORT="8069"
-# Choose the Odoo version which you want to install. For example: 16.0, 15.0 or 14.0. When using 'master' the master version will be installed.
-# IMPORTANT! This script contains extra libraries that are specifically needed for Odoo 14.0
-OE_VERSION="17.0"
-# Set this to True if you want to install the Odoo enterprise version!
+# Set the default niqi port (you still have to use -c /etc/niqi-server.conf for example to use this.)
+OE_PORT="8016"
+# Choose the niqi version which you want to install. For example: 16.0, 15.0 or 14.0. When using 'master' the master version will be installed.
+# IMPORTANT! This script contains extra libraries that are specifically needed for niqi 14.0
+OE_VERSION="16.0"
+# Set this to True if you want to install the enterprise version!
 IS_ENTERPRISE="False"
 # Set this to True if you want to install Nginx!
 INSTALL_NGINX="True"
 # Set the superadmin password - if GENERATE_RANDOM_PASSWORD is set to "True" we will automatically generate a random password, otherwise we use this one
-OE_SUPERADMIN="admin"
+OE_SUPERADMIN="HiCh@mp10ns"
 # Set to "True" to generate a random password, "False" to use the variable in OE_SUPERADMIN
-GENERATE_RANDOM_PASSWORD="True"
+GENERATE_RANDOM_PASSWORD="False"
 OE_CONFIG="${OE_USER}-server"
 # Set the website name
-WEBSITE_NAME="example.com"
-# Set the default Odoo longpolling port (you still have to use -c /etc/odoo-server.conf for example to use this.)
+WEBSITE_NAME="wll.qa"
+# Set the default niqi longpolling port (you still have to use -c /etc/niqi-server.conf for example to use this.)
 LONGPOLLING_PORT="8072"
 # Set to "True" to install certbot and have ssl enabled, "False" to use http
 ENABLE_SSL="True"
 # Provide Email to register ssl certificate
-ADMIN_EMAIL="odoo@example.com"
+ADMIN_EMAIL="bmaruff@gmail.com"
 
 ###
 #----------------------------------------------------
@@ -68,7 +68,7 @@ sudo apt autoremove -y
 # Set up the timezones
 #--------------------------------------------------
 # set the correct timezone on ubuntu
-timedatectl set-timezone Africa/Kigali
+timedatectl set-timezone Asia/Qatar
 timedatectl
 
 #--------------------------------------------------
@@ -77,7 +77,7 @@ timedatectl
 sudo apt install -y postgresql
 sudo systemctl start postgresql && sudo systemctl enable postgresql
 
-echo -e "\n=============== Creating the ODOO PostgreSQL User ========================="
+echo -e "\n=============== Creating the niqi PostgreSQL User ========================="
 sudo su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 
 #--------------------------------------------------
@@ -117,7 +117,7 @@ sudo npm install -g rtlcss node-gyp
 # Install Wkhtmltopdf if needed
 #--------------------------------------------------
 if [ $INSTALL_WKHTMLTOPDF = "True" ]; then
-echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for ODOO 16 ----"
+echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for niqi 4 ----"
 ###  WKHTMLTOPDF download links
 ## === Ubuntu Jammy x64 === (for other distributions please replace this link,
 ## in order to have correct version of wkhtmltopdf installed, for a danger note refer to
@@ -132,8 +132,8 @@ echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for ODO
   echo "Wkhtmltopdf isn't installed due to the choice of the user!"
   fi
   
-echo -e "\n============== Create ODOO system user ========================"
-sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'ODOO' --group $OE_USER
+echo -e "\n============== Create niqi system user ========================"
+sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'niqi' --group $OE_USER
 
 #The user should also be added to the sudo'ers group.
 sudo adduser $OE_USER sudo
@@ -143,9 +143,9 @@ sudo mkdir /var/log/$OE_USER
 sudo chown -R $OE_USER:$OE_USER /var/log/$OE_USER
 
 #--------------------------------------------------
-# Install Odoo from source
+# Install niqi from source
 #--------------------------------------------------
-echo -e "\n========== Installing ODOO Server ==============="
+echo -e "\n========== Installing niqi Server ==============="
 sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
 sudo pip3 install -r /$OE_HOME_EXT/requirements.txt
 if [ $IS_ENTERPRISE = "True" ]; then
@@ -205,7 +205,7 @@ fi
 
 # echo -e "\n======== Adding Enterprise or custom modules ============="
 if [ $IS_ENTERPRISE = "True" ]; then
-  #### upgrade odoo community to enterprise edition ####
+  #### upgrade niqi community to enterprise edition ####
   # Odoo 15: https://www.soladrive.com/downloads/enterprise-15.0.tar.gz
   
   echo -e "\n======== Adding some enterprise modules ============="
@@ -220,21 +220,21 @@ sudo chown $OE_USER:$OE_USER /etc/${OE_CONFIG}.conf
 sudo chmod 640 /etc/${OE_CONFIG}.conf
 
 #--------------------------------------------------
-# Adding Odoo as a deamon (Systemd)
+# Adding niqi as a deamon (Systemd)
 #--------------------------------------------------
 
-echo -e "\n========== Create Odoo systemd file ==============="
+echo -e "\n========== Create niqi systemd file ==============="
 cat <<EOF > /lib/systemd/system/$OE_USER.service
 
 [Unit]
-Description=Odoo Open Source ERP and CRM
+Description=niqi Open Source ERP and CRM
 After=network.target
 
 [Service]
 Type=simple
 User=$OE_USER
 Group=$OE_USER
-ExecStart=$OE_HOME_EXT/odoo-bin --config /etc/${OE_CONFIG}.conf  --logfile /var/log/${OE_USER}/${OE_CONFIG}.log
+ExecStart=$OE_HOME_EXT/niqi-bin --config /etc/${OE_CONFIG}.conf  --logfile /var/log/${OE_USER}/${OE_CONFIG}.log
 KillMode=mixed
 
 [Install]
@@ -245,7 +245,7 @@ EOF
 sudo chmod 755 /lib/systemd/system/$OE_USER.service
 sudo chown root: /lib/systemd/system/$OE_USER.service
 
-echo -e "\n======== Odoo startup File ============="
+echo -e "\n======== niqi startup File ============="
 sudo systemctl daemon-reload
 sudo systemctl enable --now $OE_USER.service
 sudo systemctl start $OE_USER.service
@@ -263,7 +263,7 @@ if [ $INSTALL_NGINX = "True" ]; then
   
 cat <<EOF > /etc/nginx/sites-available/$OE_USER
 
-# odoo server
+# niqi server
  upstream $OE_USER {
  server 127.0.0.1:$OE_PORT;
 }
@@ -287,7 +287,7 @@ server {
    # add ssl specific settings
    keepalive_timeout 90;
 
-   # increase proxy buffer to handle some Odoo web requests
+   # increase proxy buffer to handle some niqi web requests
    proxy_buffers 16 64k;
    proxy_buffer_size 128k;
 
@@ -295,26 +295,26 @@ server {
    proxy_connect_timeout 720s;
    proxy_send_timeout 720s;
   
-   # Add Headers for odoo proxy mode
+   # Add Headers for niqi proxy mode
    proxy_set_header Host \$host;
    proxy_set_header X-Forwarded-Host \$host;
    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
    proxy_set_header X-Forwarded-Proto \$scheme;
    proxy_set_header X-Real-IP \$remote_addr;
 
-   # Redirect requests to odoo backend server
+   # Redirect requests to niqi backend server
    location / {
      proxy_redirect off;
      proxy_pass http://$OE_USER;
    }
 
-   # Redirect longpoll requests to odoo longpolling port
+   # Redirect longpoll requests to niqi longpolling port
    location /longpolling {
        proxy_pass http://${OE_USER}chat;
    }
 
    # cache some static data in memory for 90mins
-   # under heavy load this should relieve stress on the Odoo web interface a bit.
+   # under heavy load this should relieve stress on the niqi web interface a bit.
    location ~* /web/static/ {
        proxy_cache_valid 200 90m;
        proxy_buffering on;
@@ -336,7 +336,7 @@ server {
  
 EOF
 
-  sudo mv ~/odoo /etc/nginx/sites-available/
+  sudo mv ~/niqi /etc/nginx/sites-available/
   sudo ln -s /etc/nginx/sites-available/$OE_USER /etc/nginx/sites-enabled/$OE_USER
   sudo rm /etc/nginx/sites-enabled/default
   sudo rm /etc/nginx/sites-available/default
@@ -379,19 +379,19 @@ sudo ufw allow 8069/tcp
 sudo ufw allow 8072/tcp
 sudo ufw enable 
 
-echo -e "\n================== Status of Odoo Service ============================="
+echo -e "\n================== Status of niqi Service ============================="
 sudo systemctl status $OE_USER
 echo "\n========================================================================="
-echo "Done! The Odoo server is up and running. Specifications:"
+echo "Done! The niqi server is up and running. Specifications:"
 echo "Port: $OE_PORT"
 echo "User service: $OE_USER"
 echo "User PostgreSQL: $OE_USER"
 echo "Code location: $OE_USER"
 echo "Addons folder: $OE_USER/$OE_CONFIG/addons/"
 echo "Password superadmin (database): $OE_SUPERADMIN"
-echo "Start Odoo service: sudo systemctl start $OE_USER"
-echo "Stop Odoo service: sudo systemctl stop $OE_USER"
-echo "Restart Odoo service: sudo systemctl restart $OE_USER"
+echo "Start niqi service: sudo systemctl start $OE_USER"
+echo "Stop niqi service: sudo systemctl stop $OE_USER"
+echo "Restart niqi service: sudo systemctl restart $OE_USER"
 if [ $INSTALL_NGINX = "True" ]; then
   echo "Nginx configuration file: /etc/nginx/sites-available/$OE_USER"
 fi
