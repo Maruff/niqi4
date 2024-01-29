@@ -8,7 +8,7 @@ If you set the parameter INSTALL_NGINX to True you should also configure workers
 
 Installation procedure
 1. Download the script:
-wget https://raw.githubusercontent.com/Maruff/niqi4/install_niqi4.sh
+wget https://github.com/Maruff/niqi4/blob/main/install_niqi4.sh
 2. Modify the parameters as you wish.
 There are a few things you can configure, this is the most used list:
 OE_USER will be the username for the system user.
