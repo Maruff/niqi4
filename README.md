@@ -8,7 +8,7 @@ If you set the parameter INSTALL_NGINX to True you should also configure workers
 
 Installation procedure
 1. Download the script:
-wget https://raw.githubusercontent.com/Maruff/niqi4/install_niqi.sh
+wget https://raw.githubusercontent.com/Maruff/niqi4/install_niqi4.sh
 2. Modify the parameters as you wish.
 There are a few things you can configure, this is the most used list:
 OE_USER will be the username for the system user.
@@ -25,9 +25,9 @@ INSTALL_NGINX and ENABLE_SSL must be set to True and the placeholder in ADMIN_EM
 By enabling SSL though Let's Encrypt you agree to the following policies
 
 3. Make the script executable
-sudo chmod +x install_niqi.sh
+sudo chmod +x install_niqi4.sh
 4. Execute the script:
-sudo ./install_niqi.sh
+sudo ./install_niqi4.sh
 The installation should take about 10 minutes to complete and then you will be able to access it from anywhere in the world by entering its ipaddress.
 
 For more information on hosting, upgrading to niqi enterprise, and changing your domain, contact me hrmuwanika@gmail.com
