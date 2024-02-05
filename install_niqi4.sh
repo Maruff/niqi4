@@ -206,10 +206,10 @@ fi
 # echo -e "\n======== Adding Enterprise or custom modules ============="
 if [ $IS_ENTERPRISE = "True" ]; then
   #### upgrade niqi community to enterprise edition ####
-  # Odoo 15: https://www.soladrive.com/downloads/enterprise-15.0.tar.gz
+  # Odoo 15: https://www.igenss.qa/downloads/enterprise-15.0.tar.gz
   
   echo -e "\n======== Adding some enterprise modules ============="
-  wget https://www.soladrive.com/downloads/enterprise-15.0.tar.gz
+  wget https://www.igenss.qa/downloads/enterprise-15.0.tar.gz
   tar -zxvf enterprise-15.0.tar.gz
   cp -rf odoo-15.0*/odoo/addons/* ${OE_HOME}/enterprise/addons
   rm enterprise-15.0.tar.gz
@@ -234,7 +234,7 @@ After=network.target
 Type=simple
 User=$OE_USER
 Group=$OE_USER
-ExecStart=$OE_HOME_EXT/niqi-bin --config /etc/${OE_CONFIG}.conf  --logfile /var/log/${OE_USER}/${OE_CONFIG}.log
+ExecStart=$OE_HOME_EXT/odoo-bin --config /etc/${OE_CONFIG}.conf  --logfile /var/log/${OE_USER}/${OE_CONFIG}.log
 KillMode=mixed
 
 [Install]
@@ -336,7 +336,7 @@ server {
  
 EOF
 
-  sudo mv ~/niqi /etc/nginx/sites-available/
+  sudo mv ~/odoo /etc/nginx/sites-available/
   sudo ln -s /etc/nginx/sites-available/$OE_USER /etc/nginx/sites-enabled/$OE_USER
   sudo rm /etc/nginx/sites-enabled/default
   sudo rm /etc/nginx/sites-available/default
