@@ -30,4 +30,4 @@ sudo chmod +x install_niqi4.sh
 sudo ./install_niqi4.sh
 The installation should take about 10 minutes to complete and then you will be able to access it from anywhere in the world by entering its ipaddress.
 
-For more information on hosting, upgrading to niqi enterprise, and changing your domain, contact me hrmuwanika@gmail.com
+For more information on hosting, upgrading to niqi enterprise, and changing your domain, contact me bmaruff@gmail.com
