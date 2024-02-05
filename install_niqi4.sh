@@ -39,7 +39,7 @@ GENERATE_RANDOM_PASSWORD="False"
 OE_CONFIG="${OE_USER}-server"
 # Set the website name
 WEBSITE_NAME="wll.qa"
-# Set the default niqi longpolling port (you still have to use -c /etc/niqi-server.conf for example to use this.)
+# Set the default odoo longpolling port (you still have to use -c /etc/niqi-server.conf for example to use this.)
 LONGPOLLING_PORT="8072"
 # Set to "True" to install certbot and have ssl enabled, "False" to use http
 ENABLE_SSL="True"
@@ -77,7 +77,7 @@ timedatectl
 sudo apt install -y postgresql
 sudo systemctl start postgresql && sudo systemctl enable postgresql
 
-echo -e "\n=============== Creating the niqi PostgreSQL User ========================="
+echo -e "\n=============== Creating the odoo PostgreSQL User ========================="
 sudo su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 
 #--------------------------------------------------
@@ -106,7 +106,7 @@ sudo pip3 install setuptools wheel
 
 
 echo -e "\n=========== Installing nodeJS NPM and rtlcss for LTR support =================="
-sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -odoo
 sudo apt install -y nodejs npm -y
 sudo npm install -g --upgrade npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -117,7 +117,7 @@ sudo npm install -g rtlcss node-gyp
 # Install Wkhtmltopdf if needed
 #--------------------------------------------------
 if [ $INSTALL_WKHTMLTOPDF = "True" ]; then
-echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for niqi 4 ----"
+echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for odoo 4 ----"
 ###  WKHTMLTOPDF download links
 ## === Ubuntu Jammy x64 === (for other distributions please replace this link,
 ## in order to have correct version of wkhtmltopdf installed, for a danger note refer to
@@ -132,7 +132,7 @@ echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for niq
   echo "Wkhtmltopdf isn't installed due to the choice of the user!"
   fi
   
-echo -e "\n============== Create niqi system user ========================"
+echo -e "\n============== Create odoo system user ========================"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'niqi' --group $OE_USER
 
 #The user should also be added to the sudo'ers group.
@@ -206,13 +206,13 @@ fi
 # echo -e "\n======== Adding Enterprise or custom modules ============="
 if [ $IS_ENTERPRISE = "True" ]; then
   #### upgrade niqi community to enterprise edition ####
-  # Odoo 15: https://www.igenss.qa/downloads/enterprise-15.0.tar.gz
+  # Odoo 16: https://www.igenss.qa/downloads/enterprise-16.0.tar.gz
   
   echo -e "\n======== Adding some enterprise modules ============="
-  wget https://www.igenss.qa/downloads/enterprise-15.0.tar.gz
-  tar -zxvf enterprise-15.0.tar.gz
-  cp -rf odoo-15.0*/odoo/addons/* ${OE_HOME}/enterprise/addons
-  rm enterprise-15.0.tar.gz
+  wget https://www.igenss.qa/downloads/enterprise-16.0.tar.gz
+  tar -zxvf enterprise-16.0.tar.gz
+  cp -rf odoo-16.0*/odoo/addons/* ${OE_HOME}/enterprise/addons
+  rm enterprise-16.0.tar.gz
   chown -R $OE_USER:$OE_USER ${OE_HOME}/
 fi
 
