@@ -27,9 +27,13 @@ INSTALL_NGINX and ENABLE_SSL must be set to True and the placeholder in ADMIN_EM
 By enabling SSL though Let's Encrypt you agree to the following policies
 
 4. Make the script executable
+```
 sudo chmod +x install_niqi4.sh
+```
 5. Execute the script:
+```
 sudo ./install_niqi4.sh
+```
 The installation should take about 10 minutes to complete and then you will be able to access it from anywhere in the world by entering its ipaddress.
 
 For more information on hosting, upgrading to niqi enterprise, and changing your domain, contact me bmaruff@gmail.com
