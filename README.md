@@ -8,8 +8,10 @@ If you set the parameter INSTALL_NGINX to True you should also configure workers
 
 Installation procedure
 1. Download the script:
-wget https://github.com/Maruff/niqi4/blob/main/install_niqi4.sh
-2. Modify the parameters as you wish.
+```
+wget https://raw.githubusercontent.com/Maruff/niqi4/main/install_niqi4.sh
+```
+3. Modify the parameters as you wish.
 There are a few things you can configure, this is the most used list:
 OE_USER will be the username for the system user.
 GENERATE_RANDOM_PASSWORD if this is set to True the script will generate a random password, if set to Falsewe'll set the password that is configured in OE_SUPERADMIN. By default the value is True and the script will generate a random and secure password.
@@ -24,9 +26,9 @@ ADMIN_EMAIL Email is needed to register for Let's Encrypt registration. Replace 
 INSTALL_NGINX and ENABLE_SSL must be set to True and the placeholder in ADMIN_EMAIL must be replaced with a valid email address for certbot installation
 By enabling SSL though Let's Encrypt you agree to the following policies
 
-3. Make the script executable
+4. Make the script executable
 sudo chmod +x install_niqi4.sh
-4. Execute the script:
+5. Execute the script:
 sudo ./install_niqi4.sh
 The installation should take about 10 minutes to complete and then you will be able to access it from anywhere in the world by entering its ipaddress.
 
