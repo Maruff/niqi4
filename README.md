@@ -25,7 +25,6 @@ ENABLE_SSL Set this to True to install certbot and configure nginx with https us
 ADMIN_EMAIL Email is needed to register for Let's Encrypt registration. Replace the default placeholder with an email of your organisation.
 INSTALL_NGINX and ENABLE_SSL must be set to True and the placeholder in ADMIN_EMAIL must be replaced with a valid email address for certbot installation
 By enabling SSL though Let's Encrypt you agree to the following policies
-
 4. Make the script executable
 ```
 sudo chmod +x install_niqi4.sh
