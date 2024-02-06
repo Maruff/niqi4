@@ -33,13 +33,13 @@ IS_ENTERPRISE="False"
 # Set this to True if you want to install Nginx!
 INSTALL_NGINX="True"
 # Set the superadmin password - if GENERATE_RANDOM_PASSWORD is set to "True" we will automatically generate a random password, otherwise we use this one
-OE_SUPERADMIN="admin"
+OE_SUPERADMIN="N@g@r3th1"
 # Set to "True" to generate a random password, "False" to use the variable in OE_SUPERADMIN
-GENERATE_RANDOM_PASSWORD="True"
+GENERATE_RANDOM_PASSWORD="False"
 OE_CONFIG="${OE_USER}-server"
 # Set the website name
 WEBSITE_NAME="wll.qa"
-# Set the default odoo longpolling port (you still have to use -c /etc/niqi-server.conf for example to use this.)
+# Set the default niqi longpolling port (you still have to use -c /etc/niqi-server.conf for example to use this.)
 LONGPOLLING_PORT="8072"
 # Set to "True" to install certbot and have ssl enabled, "False" to use http
 ENABLE_SSL="True"
@@ -106,7 +106,7 @@ sudo pip3 install setuptools wheel
 
 
 echo -e "\n=========== Installing nodeJS NPM and rtlcss for LTR support =================="
-sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -niqi
 sudo apt install -y nodejs npm -y
 sudo npm install -g --upgrade npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -118,7 +118,7 @@ sudo npm install -g rtlcss node-gyp
 #--------------------------------------------------
 if [ $INSTALL_WKHTMLTOPDF = "True" ]; then
 echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for niqi 4 ----"
-###  WKHTMLTOPDF download links
+###  WKHTMLTOPDF download linksadminadmin
 ## === Ubuntu Jammy x64 === (for other distributions please replace this link,
 ## in order to have correct version of wkhtmltopdf installed, for a danger note refer to
 ## https://github.com/odoo/odoo/wiki/Wkhtmltopdf ):
