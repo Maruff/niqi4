@@ -77,7 +77,7 @@ timedatectl
 sudo apt install -y postgresql
 sudo systemctl start postgresql && sudo systemctl enable postgresql
 
-echo -e "\n=============== Creating the odoo PostgreSQL User ========================="
+echo -e "\n=============== Creating the niqi PostgreSQL User ========================="
 sudo su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 
 #--------------------------------------------------
@@ -106,7 +106,7 @@ sudo pip3 install setuptools wheel
 
 
 echo -e "\n=========== Installing nodeJS NPM and rtlcss for LTR support =================="
-sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -odoo
+sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -niqi
 sudo apt install -y nodejs npm -y
 sudo npm install -g --upgrade npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -117,7 +117,7 @@ sudo npm install -g rtlcss node-gyp
 # Install Wkhtmltopdf if needed
 #--------------------------------------------------
 if [ $INSTALL_WKHTMLTOPDF = "True" ]; then
-echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for odoo 4 ----"
+echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for niqi 4 ----"
 ###  WKHTMLTOPDF download links
 ## === Ubuntu Jammy x64 === (for other distributions please replace this link,
 ## in order to have correct version of wkhtmltopdf installed, for a danger note refer to
@@ -132,7 +132,7 @@ echo -e "\n---- Install wkhtmltopdf and place shortcuts on correct place for odo
   echo "Wkhtmltopdf isn't installed due to the choice of the user!"
   fi
   
-echo -e "\n============== Create odoo system user ========================"
+echo -e "\n============== Create niqi system user ========================"
 sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'niqi' --group $OE_USER
 
 #The user should also be added to the sudo'ers group.
@@ -234,7 +234,7 @@ After=network.target
 Type=simple
 User=$OE_USER
 Group=$OE_USER
-ExecStart=$OE_HOME_EXT/odoo-bin --config /etc/${OE_CONFIG}.conf  --logfile /var/log/${OE_USER}/${OE_CONFIG}.log
+ExecStart=$OE_HOME_EXT/niqi-bin --config /etc/${OE_CONFIG}.conf  --logfile /var/log/${OE_USER}/${OE_CONFIG}.log
 KillMode=mixed
 
 [Install]
