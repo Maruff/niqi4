@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 ################################################################################
@@ -106,7 +107,8 @@ sudo pip3 install setuptools wheel
 
 
 echo -e "\n=========== Installing nodeJS NPM and rtlcss for LTR support =================="
-sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -niqi
+sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+# curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
 sudo apt install -y nodejs npm -y
 sudo npm install -g --upgrade npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
