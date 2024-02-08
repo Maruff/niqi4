@@ -107,8 +107,8 @@ sudo pip3 install setuptools wheel
 
 
 echo -e "\n=========== Installing nodeJS NPM and rtlcss for LTR support =================="
-sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-# curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
+# sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
 sudo apt install -y nodejs npm -y
 sudo npm install -g --upgrade npm
 sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -275,7 +275,8 @@ cat <<EOF > /etc/nginx/sites-available/$OE_USER
 }
 
 server {
-   listen 80;
+   listen 8016;
+   #listen 80;
    server_name $WEBSITE_NAME;
 
    # Specifies the maximum accepted body size of a client request,
@@ -377,7 +378,7 @@ sudo ufw allow 'Nginx HTTPS'
 sudo ufw allow 22/tcp
 sudo ufw allow 6010/tcp
 #sudo ufw allow 5432//tcp
-sudo ufw allow 8069/tcp
+sudo ufw allow 8016/tcp
 sudo ufw allow 8072/tcp
 sudo ufw enable 
 
